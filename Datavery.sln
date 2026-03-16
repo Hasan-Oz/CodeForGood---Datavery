@@ -1,10 +1,11 @@
-﻿Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Datavery.Presentation", "Datavery.Presentation\Datavery.Presentation.csproj", "{49B782C0-7255-4835-92F2-046C4CDF729A}"
+﻿
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Datavery.Presentation", "Datavery.Presentation\Datavery.Presentation.csproj", "{B73518C4-1D38-438A-B1E2-1FE35536BFE7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Datavery.DAL", "Datavery.DAL\Datavery.DAL.csproj", "{0E864C99-44B9-41AD-AC9A-5AD8EC4CF13C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Datavery.DAL", "Datavery.DAL\Datavery.DAL.csproj", "{8F1F85BC-BC2C-4E58-A757-FE2245948DA6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Datavery.BLL", "Datavery.BLL\Datavery.BLL.csproj", "{9CD86AED-BD95-44E1-9F6F-7C31B418395B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Datavery.Domain", "Datavery.Domain\Datavery.Domain.csproj", "{BB6AA440-E556-412F-B44A-EE31078A33F4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Datavery.Domain", "Datavery.Domain\Datavery.Domain.csproj", "{171643C6-07BE-40DB-AE38-31B5BF8AA205}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Datavery.BLL", "Datavery.BLL\Datavery.BLL.csproj", "{B97B6DFB-4B21-45F7-8098-90D1BB6066BF}"
 EndProject
 Global
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
