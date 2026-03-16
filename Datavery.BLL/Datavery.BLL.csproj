@@ -6,4 +6,9 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Datavery.DAL\Datavery.DAL.csproj" />
+      <ProjectReference Include="..\Datavery.Domain\Datavery.Domain.csproj" />
+    </ItemGroup>
+
 </Project>

@@ -1,11 +1,68 @@
 {
   "version": 3,
   "targets": {
-    "net10.0": {}
+    "net10.0": {
+      "Datavery.BLL/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "Datavery.DAL": "1.0.0",
+          "Datavery.Domain": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Datavery.BLL.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Datavery.BLL.dll": {}
+        }
+      },
+      "Datavery.DAL/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "Datavery.Domain": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Datavery.DAL.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Datavery.DAL.dll": {}
+        }
+      },
+      "Datavery.Domain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "compile": {
+          "bin/placeholder/Datavery.Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Datavery.Domain.dll": {}
+        }
+      }
+    }
   },
-  "libraries": {},
+  "libraries": {
+    "Datavery.BLL/1.0.0": {
+      "type": "project",
+      "path": "../Datavery.BLL/Datavery.BLL.csproj",
+      "msbuildProject": "../Datavery.BLL/Datavery.BLL.csproj"
+    },
+    "Datavery.DAL/1.0.0": {
+      "type": "project",
+      "path": "../Datavery.DAL/Datavery.DAL.csproj",
+      "msbuildProject": "../Datavery.DAL/Datavery.DAL.csproj"
+    },
+    "Datavery.Domain/1.0.0": {
+      "type": "project",
+      "path": "../Datavery.Domain/Datavery.Domain.csproj",
+      "msbuildProject": "../Datavery.Domain/Datavery.Domain.csproj"
+    }
+  },
   "projectFileDependencyGroups": {
-    "net10.0": []
+    "net10.0": [
+      "Datavery.BLL >= 1.0.0",
+      "Datavery.Domain >= 1.0.0"
+    ]
   },
   "packageFolders": {
     "/Users/jakub_blaskovan/.nuget/packages/": {}
@@ -32,7 +89,14 @@
       "frameworks": {
         "net10.0": {
           "targetAlias": "net10.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "/Users/jakub_blaskovan/Projects/RiderProjects/Datavery/Datavery.BLL/Datavery.BLL.csproj": {
+              "projectPath": "/Users/jakub_blaskovan/Projects/RiderProjects/Datavery/Datavery.BLL/Datavery.BLL.csproj"
+            },
+            "/Users/jakub_blaskovan/Projects/RiderProjects/Datavery/Datavery.Domain/Datavery.Domain.csproj": {
+              "projectPath": "/Users/jakub_blaskovan/Projects/RiderProjects/Datavery/Datavery.Domain/Datavery.Domain.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

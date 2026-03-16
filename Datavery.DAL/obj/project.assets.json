@@ -1,11 +1,30 @@
 {
   "version": 3,
   "targets": {
-    "net10.0": {}
+    "net10.0": {
+      "Datavery.Domain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "compile": {
+          "bin/placeholder/Datavery.Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Datavery.Domain.dll": {}
+        }
+      }
+    }
   },
-  "libraries": {},
+  "libraries": {
+    "Datavery.Domain/1.0.0": {
+      "type": "project",
+      "path": "../Datavery.Domain/Datavery.Domain.csproj",
+      "msbuildProject": "../Datavery.Domain/Datavery.Domain.csproj"
+    }
+  },
   "projectFileDependencyGroups": {
-    "net10.0": []
+    "net10.0": [
+      "Datavery.Domain >= 1.0.0"
+    ]
   },
   "packageFolders": {
     "/Users/jakub_blaskovan/.nuget/packages/": {}
@@ -32,7 +51,11 @@
       "frameworks": {
         "net10.0": {
           "targetAlias": "net10.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "/Users/jakub_blaskovan/Projects/RiderProjects/Datavery/Datavery.Domain/Datavery.Domain.csproj": {
+              "projectPath": "/Users/jakub_blaskovan/Projects/RiderProjects/Datavery/Datavery.Domain/Datavery.Domain.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
