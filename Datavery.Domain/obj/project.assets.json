@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/jakub_blaskovan/Projects/RiderProjects/Datavery/Datavery.Domain/Datavery.Domain.csproj",
+      "projectUniqueName": "/Users/jakub_blaskovan/Projects/RiderProjects/CodeForGood---Datavery/Datavery.Domain/Datavery.Domain.csproj",
       "projectName": "Datavery.Domain",
-      "projectPath": "/Users/jakub_blaskovan/Projects/RiderProjects/Datavery/Datavery.Domain/Datavery.Domain.csproj",
+      "projectPath": "/Users/jakub_blaskovan/Projects/RiderProjects/CodeForGood---Datavery/Datavery.Domain/Datavery.Domain.csproj",
       "packagesPath": "/Users/jakub_blaskovan/.nuget/packages/",
-      "outputPath": "/Users/jakub_blaskovan/Projects/RiderProjects/Datavery/Datavery.Domain/obj/",
+      "outputPath": "/Users/jakub_blaskovan/Projects/RiderProjects/CodeForGood---Datavery/Datavery.Domain/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/jakub_blaskovan/.nuget/NuGet/NuGet.Config"

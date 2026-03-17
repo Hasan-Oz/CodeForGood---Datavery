@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="Datavery.BLL/Datavery.BLL.csproj" />
+  <Project Path="Datavery.DAL/Datavery.DAL.csproj" />
+  <Project Path="Datavery.Domain/Datavery.Domain.csproj" />
+  <Project Path="Datavery.Presentation/Datavery.Presentation.csproj" />
+</Solution>

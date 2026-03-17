@@ -70,11 +70,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/jakub_blaskovan/Projects/RiderProjects/Datavery/Datavery.Presentation/Datavery.Presentation.csproj",
+      "projectUniqueName": "/Users/jakub_blaskovan/Projects/RiderProjects/CodeForGood---Datavery/Datavery.Presentation/Datavery.Presentation.csproj",
       "projectName": "Datavery.Presentation",
-      "projectPath": "/Users/jakub_blaskovan/Projects/RiderProjects/Datavery/Datavery.Presentation/Datavery.Presentation.csproj",
+      "projectPath": "/Users/jakub_blaskovan/Projects/RiderProjects/CodeForGood---Datavery/Datavery.Presentation/Datavery.Presentation.csproj",
       "packagesPath": "/Users/jakub_blaskovan/.nuget/packages/",
-      "outputPath": "/Users/jakub_blaskovan/Projects/RiderProjects/Datavery/Datavery.Presentation/obj/",
+      "outputPath": "/Users/jakub_blaskovan/Projects/RiderProjects/CodeForGood---Datavery/Datavery.Presentation/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/jakub_blaskovan/.nuget/NuGet/NuGet.Config"
@@ -90,11 +90,11 @@
         "net10.0": {
           "targetAlias": "net10.0",
           "projectReferences": {
-            "/Users/jakub_blaskovan/Projects/RiderProjects/Datavery/Datavery.BLL/Datavery.BLL.csproj": {
-              "projectPath": "/Users/jakub_blaskovan/Projects/RiderProjects/Datavery/Datavery.BLL/Datavery.BLL.csproj"
+            "/Users/jakub_blaskovan/Projects/RiderProjects/CodeForGood---Datavery/Datavery.BLL/Datavery.BLL.csproj": {
+              "projectPath": "/Users/jakub_blaskovan/Projects/RiderProjects/CodeForGood---Datavery/Datavery.BLL/Datavery.BLL.csproj"
             },
-            "/Users/jakub_blaskovan/Projects/RiderProjects/Datavery/Datavery.Domain/Datavery.Domain.csproj": {
-              "projectPath": "/Users/jakub_blaskovan/Projects/RiderProjects/Datavery/Datavery.Domain/Datavery.Domain.csproj"
+            "/Users/jakub_blaskovan/Projects/RiderProjects/CodeForGood---Datavery/Datavery.Domain/Datavery.Domain.csproj": {
+              "projectPath": "/Users/jakub_blaskovan/Projects/RiderProjects/CodeForGood---Datavery/Datavery.Domain/Datavery.Domain.csproj"
             }
           }
         }
