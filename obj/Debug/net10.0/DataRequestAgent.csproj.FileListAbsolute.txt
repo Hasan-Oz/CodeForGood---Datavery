@@ -108,3 +108,4 @@ C:\Code\Datavery-Prototype\obj\Debug\net10.0\refint\DataRequestAgent.dll
 C:\Code\Datavery-Prototype\obj\Debug\net10.0\DataRequestAgent.pdb
 C:\Code\Datavery-Prototype\obj\Debug\net10.0\DataRequestAgent.genruntimeconfig.cache
 C:\Code\Datavery-Prototype\obj\Debug\net10.0\ref\DataRequestAgent.dll
+C:\code\Datavery-Prototype\obj\Debug\net10.0\DataRequestAgent.sourcelink.json
