@@ -16,71 +16,51 @@ namespace DataRequestAgent
             _connectionString = connectionString;
         }
 
-        // ── Init: create DB + tables + seed if needed ─────────────────────────
+        // ── Init ──────────────────────────────────────────────────────────────
 
         public async Task InitialiseAsync()
         {
-            // Create database if it doesn't exist
             var masterConn = _connectionString.Replace("Database=DataRequestAgent", "Database=master");
             await using (var conn = new SqlConnection(masterConn))
             {
                 await conn.OpenAsync();
                 await using var cmd = new SqlCommand(
-                    "IF NOT EXISTS (SELECT name FROM sys.databases WHERE name = 'DataRequestAgent') CREATE DATABASE DataRequestAgent",
-                    conn);
+                    "IF NOT EXISTS (SELECT name FROM sys.databases WHERE name = 'DataRequestAgent') CREATE DATABASE DataRequestAgent", conn);
                 await cmd.ExecuteNonQueryAsync();
             }
 
             await using var db = new SqlConnection(_connectionString);
             await db.OpenAsync();
 
-            // Create tables
-            var schema = """
+            var schema = @"
+                SET QUOTED_IDENTIFIER ON; SET ANSI_NULLS ON;
                 IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='Users' AND xtype='U')
                 CREATE TABLE Users (
-                    Id          INT IDENTITY(1,1) PRIMARY KEY,
-                    Name        NVARCHAR(100) NOT NULL,
-                    Email       NVARCHAR(150) NOT NULL,
-                    Role        NVARCHAR(50)  NOT NULL,
-                    RegisteredAt DATETIME2    NOT NULL DEFAULT GETUTCDATE(),
-                    IsActive    BIT           NOT NULL DEFAULT 1
-                );
+                    Id INT IDENTITY(1,1) PRIMARY KEY, Name NVARCHAR(100) NOT NULL,
+                    Email NVARCHAR(150) NOT NULL, Role NVARCHAR(50) NOT NULL,
+                    RegisteredAt DATETIME2 NOT NULL DEFAULT GETUTCDATE(), IsActive BIT NOT NULL DEFAULT 1);
 
                 IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='Sales' AND xtype='U')
                 CREATE TABLE Sales (
-                    Id          INT IDENTITY(1,1) PRIMARY KEY,
-                    Product     NVARCHAR(100) NOT NULL,
-                    Amount      DECIMAL(10,2) NOT NULL,
-                    Customer    NVARCHAR(100) NOT NULL,
-                    SoldAt      DATETIME2     NOT NULL DEFAULT GETUTCDATE(),
-                    Region      NVARCHAR(50)  NOT NULL
-                );
+                    Id INT IDENTITY(1,1) PRIMARY KEY, Product NVARCHAR(100) NOT NULL,
+                    Amount DECIMAL(10,2) NOT NULL, Customer NVARCHAR(100) NOT NULL,
+                    SoldAt DATETIME2 NOT NULL DEFAULT GETUTCDATE(), Region NVARCHAR(50) NOT NULL);
 
                 IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='Projects' AND xtype='U')
                 CREATE TABLE Projects (
-                    Id          INT IDENTITY(1,1) PRIMARY KEY,
-                    Name        NVARCHAR(100) NOT NULL,
-                    Owner       NVARCHAR(100) NOT NULL,
-                    Status      NVARCHAR(50)  NOT NULL,
-                    Deadline    DATETIME2     NOT NULL,
-                    TeamSize    INT           NOT NULL
-                );
+                    Id INT IDENTITY(1,1) PRIMARY KEY, Name NVARCHAR(100) NOT NULL,
+                    Owner NVARCHAR(100) NOT NULL, Status NVARCHAR(50) NOT NULL,
+                    Deadline DATETIME2 NOT NULL, TeamSize INT NOT NULL);
 
                 IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='RequestLogs' AND xtype='U')
                 CREATE TABLE RequestLogs (
-                    Id          INT IDENTITY(1,1) PRIMARY KEY,
-                    Question    NVARCHAR(500) NOT NULL,
-                    Dataset     NVARCHAR(50)  NOT NULL,
-                    Category    NVARCHAR(50)  NOT NULL,
-                    Status      NVARCHAR(20)  NOT NULL,
-                    AskedAt     DATETIME2     NOT NULL DEFAULT GETUTCDATE()
-                );
-                """;
+                    Id INT IDENTITY(1,1) PRIMARY KEY, Question NVARCHAR(500) NOT NULL,
+                    Dataset NVARCHAR(100) NOT NULL, Category NVARCHAR(50) NOT NULL,
+                    Status NVARCHAR(20) NOT NULL, AskedAt DATETIME2 NOT NULL DEFAULT GETUTCDATE());";
 
             await using (var cmd = new SqlCommand(schema, db))
                 await cmd.ExecuteNonQueryAsync();
 
-            // Seed only if empty
             await using (var cmd = new SqlCommand("SELECT COUNT(*) FROM Users", db))
             {
                 var count = (int)await cmd.ExecuteScalarAsync();
@@ -94,41 +74,39 @@ namespace DataRequestAgent
 
         private async Task SeedAsync(SqlConnection db)
         {
-            var seed = """
+            var seed = @"
                 SET QUOTED_IDENTIFIER ON; SET ANSI_NULLS ON;
-
                 INSERT INTO Users (Name, Email, Role, RegisteredAt, IsActive) VALUES
-                ('Alice Martens',   'alice@wecfg.com',   'Admin',     '2024-01-15', 1),
-                ('Ben Hoekstra',    'ben@wecfg.com',     'Developer', '2024-02-20', 1),
-                ('Clara Visser',    'clara@wecfg.com',   'Designer',  '2024-03-10', 1),
-                ('David Smit',      'david@wecfg.com',   'Developer', '2024-04-05', 1),
-                ('Eva de Jong',     'eva@wecfg.com',     'Manager',   '2024-05-18', 0),
-                ('Frank Bakker',    'frank@wecfg.com',   'Developer', '2024-06-22', 1),
-                ('Grace Willems',   'grace@wecfg.com',   'Designer',  '2024-07-30', 1),
-                ('Hank Peters',     'hank@wecfg.com',    'Developer', '2024-08-14', 1);
+                ('Alice Martens','alice@wecfg.com','Admin','2024-01-15',1),
+                ('Ben Hoekstra','ben@wecfg.com','Developer','2024-02-20',1),
+                ('Clara Visser','clara@wecfg.com','Designer','2024-03-10',1),
+                ('David Smit','david@wecfg.com','Developer','2024-04-05',1),
+                ('Eva de Jong','eva@wecfg.com','Manager','2024-05-18',0),
+                ('Frank Bakker','frank@wecfg.com','Developer','2024-06-22',1),
+                ('Grace Willems','grace@wecfg.com','Designer','2024-07-30',1),
+                ('Hank Peters','hank@wecfg.com','Developer','2024-08-14',1);
 
                 INSERT INTO Sales (Product, Amount, Customer, SoldAt, Region) VALUES
-                ('AI Starter Pack',  1200.00, 'Acme Corp',      '2024-09-01', 'Noord-Holland'),
-                ('Data Dashboard',   3400.50, 'TechNL',         '2024-09-15', 'Zuid-Holland'),
-                ('API Integration',   850.00, 'StartupX',       '2024-10-02', 'Utrecht'),
-                ('AI Starter Pack',  1200.00, 'GreenTech',      '2024-10-18', 'Gelderland'),
-                ('Custom Report',    2100.75, 'Acme Corp',      '2024-11-05', 'Noord-Holland'),
-                ('Data Dashboard',   3400.50, 'FinanceNL',      '2024-11-20', 'Noord-Brabant'),
-                ('API Integration',   850.00, 'RetailGroup',    '2024-12-03', 'Limburg'),
-                ('Enterprise Suite', 9500.00, 'BigCorp',        '2025-01-10', 'Noord-Holland'),
-                ('AI Starter Pack',  1200.00, 'MedTech',        '2025-01-25', 'Overijssel'),
-                ('Custom Report',    2100.75, 'StartupX',       '2025-02-08', 'Utrecht');
+                ('AI Starter Pack',1200.00,'Alice Martens','2024-09-01','Noord-Holland'),
+                ('Data Dashboard',3400.50,'Ben Hoekstra','2024-09-15','Zuid-Holland'),
+                ('API Integration',850.00,'Clara Visser','2024-10-02','Utrecht'),
+                ('AI Starter Pack',1200.00,'David Smit','2024-10-18','Gelderland'),
+                ('Custom Report',2100.75,'Alice Martens','2024-11-05','Noord-Holland'),
+                ('Data Dashboard',3400.50,'Frank Bakker','2024-11-20','Noord-Brabant'),
+                ('API Integration',850.00,'Grace Willems','2024-12-03','Limburg'),
+                ('Enterprise Suite',9500.00,'Hank Peters','2025-01-10','Noord-Holland'),
+                ('AI Starter Pack',1200.00,'Ben Hoekstra','2025-01-25','Overijssel'),
+                ('Custom Report',2100.75,'Clara Visser','2025-02-08','Utrecht');
 
                 INSERT INTO Projects (Name, Owner, Status, Deadline, TeamSize) VALUES
-                ('AI Data Agent',        'Alice Martens',  'In Progress', '2025-06-30', 4),
-                ('Client Dashboard',     'Ben Hoekstra',   'In Progress', '2025-04-15', 3),
-                ('Mobile App Redesign',  'Clara Visser',   'Planning',    '2025-08-01', 2),
-                ('API Gateway',          'David Smit',     'Completed',   '2025-02-28', 3),
-                ('Data Pipeline',        'Frank Bakker',   'In Progress', '2025-05-20', 5),
-                ('Marketing Portal',     'Grace Willems',  'Planning',    '2025-09-10', 2),
-                ('Reporting Engine',     'Hank Peters',    'Completed',   '2025-01-31', 4),
-                ('Security Audit',       'Alice Martens',  'In Progress', '2025-03-31', 2);
-                """;
+                ('AI Data Agent','Alice Martens','In Progress','2025-06-30',4),
+                ('Client Dashboard','Ben Hoekstra','In Progress','2025-04-15',3),
+                ('Mobile App Redesign','Clara Visser','Planning','2025-08-01',2),
+                ('API Gateway','David Smit','Completed','2025-02-28',3),
+                ('Data Pipeline','Frank Bakker','In Progress','2025-05-20',5),
+                ('Marketing Portal','Grace Willems','Planning','2025-09-10',2),
+                ('Reporting Engine','Hank Peters','Completed','2025-01-31',4),
+                ('Security Audit','Alice Martens','In Progress','2025-03-31',2);";
 
             await using var cmd = new SqlCommand(seed, db);
             await cmd.ExecuteNonQueryAsync();
@@ -137,7 +115,7 @@ namespace DataRequestAgent
             Console.ResetColor();
         }
 
-        // ── Query routing ─────────────────────────────────────────────────────
+        // ── Single dataset query ──────────────────────────────────────────────
 
         public async Task<List<Dictionary<string, object>>> QueryAsync(Dataset dataset, string question)
         {
@@ -148,12 +126,70 @@ namespace DataRequestAgent
                 Dataset.Projects => BuildProjectsQuery(question),
                 _                => null
             };
-
             if (sql == null) return new();
             return await ExecuteQueryAsync(sql);
         }
 
-        // ── Smart query builders ──────────────────────────────────────────────
+        // ── JOIN query ────────────────────────────────────────────────────────
+
+        public async Task<List<Dictionary<string, object>>> QueryJoinAsync(Dataset a, Dataset b, string question)
+        {
+            var q = question.ToLower();
+            string sql = "";
+
+            // Users + Sales join
+            if ((a == Dataset.Users && b == Dataset.Sales) || (a == Dataset.Sales && b == Dataset.Users))
+            {
+                if (q.Contains("total") || q.Contains("spent") || q.Contains("revenue"))
+                    sql = @"SELECT u.Name, u.Role, u.Email,
+                                   COUNT(s.Id) AS TotalOrders,
+                                   SUM(s.Amount) AS TotalSpent
+                            FROM Users u
+                            INNER JOIN Sales s ON u.Name = s.Customer
+                            GROUP BY u.Name, u.Role, u.Email
+                            ORDER BY TotalSpent DESC";
+                else if (q.Contains("product") || q.Contains("bought") || q.Contains("purchased"))
+                    sql = @"SELECT u.Name, u.Role, s.Product, s.Amount, s.SoldAt, s.Region
+                            FROM Users u
+                            INNER JOIN Sales s ON u.Name = s.Customer
+                            ORDER BY s.SoldAt DESC";
+                else
+                    sql = @"SELECT u.Name, u.Email, u.Role,
+                                   s.Product, s.Amount, s.Region, s.SoldAt
+                            FROM Users u
+                            INNER JOIN Sales s ON u.Name = s.Customer
+                            ORDER BY s.SoldAt DESC";
+            }
+
+            // Users + Projects join
+            else if ((a == Dataset.Users && b == Dataset.Projects) || (a == Dataset.Projects && b == Dataset.Users))
+            {
+                if (q.Contains("in progress") || q.Contains("active"))
+                    sql = @"SELECT u.Name, u.Email, u.Role,
+                                   p.Name AS ProjectName, p.Status, p.Deadline, p.TeamSize
+                            FROM Users u
+                            INNER JOIN Projects p ON u.Name = p.Owner
+                            WHERE p.Status = 'In Progress'
+                            ORDER BY p.Deadline";
+                else if (q.Contains("completed"))
+                    sql = @"SELECT u.Name, u.Email,
+                                   p.Name AS ProjectName, p.Status, p.Deadline
+                            FROM Users u
+                            INNER JOIN Projects p ON u.Name = p.Owner
+                            WHERE p.Status = 'Completed'";
+                else
+                    sql = @"SELECT u.Name, u.Email, u.Role,
+                                   p.Name AS ProjectName, p.Status, p.Deadline, p.TeamSize
+                            FROM Users u
+                            INNER JOIN Projects p ON u.Name = p.Owner
+                            ORDER BY p.Deadline";
+            }
+
+            if (string.IsNullOrEmpty(sql)) return new();
+            return await ExecuteQueryAsync(sql);
+        }
+
+        // ── Query builders ────────────────────────────────────────────────────
 
         private string BuildUsersQuery(string question)
         {
@@ -201,7 +237,7 @@ namespace DataRequestAgent
             return "SELECT TOP 10 Id, Name, Owner, Status, Deadline, TeamSize FROM Projects ORDER BY Deadline";
         }
 
-        // ── Generic query executor ────────────────────────────────────────────
+        // ── Generic executor ──────────────────────────────────────────────────
 
         private async Task<List<Dictionary<string, object>>> ExecuteQueryAsync(string sql)
         {
@@ -210,7 +246,6 @@ namespace DataRequestAgent
             await conn.OpenAsync();
             await using var cmd    = new SqlCommand(sql, conn);
             await using var reader = await cmd.ExecuteReaderAsync();
-
             while (await reader.ReadAsync())
             {
                 var row = new Dictionary<string, object>();
@@ -221,7 +256,7 @@ namespace DataRequestAgent
             return results;
         }
 
-        // ── Log persistence ───────────────────────────────────────────────────
+        // ── Logging ───────────────────────────────────────────────────────────
 
         public async Task SaveLogAsync(string question, string dataset, string category, string status)
         {
@@ -237,9 +272,7 @@ namespace DataRequestAgent
         }
 
         public async Task<List<Dictionary<string, object>>> GetLogsAsync()
-        {
-            return await ExecuteQueryAsync(
+            => await ExecuteQueryAsync(
                 "SELECT TOP 20 Question, Dataset, Category, Status, AskedAt FROM RequestLogs ORDER BY AskedAt DESC");
-        }
     }
 }

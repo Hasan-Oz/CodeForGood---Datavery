@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("DataRequestAgent")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5576cd37f75607fadb3276c91a583fbd4e66a2da")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+78b6730ea7f980f993a93676844c7337c64069a2")]
 [assembly: System.Reflection.AssemblyProductAttribute("DataRequestAgent")]
 [assembly: System.Reflection.AssemblyTitleAttribute("DataRequestAgent")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
