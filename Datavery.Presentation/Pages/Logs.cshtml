@@ -1,0 +1,42 @@
+@page
+@model Datavery.Presentation.Pages.LogsModel
+@{
+    ViewData["Title"] = "Logs";
+}
+
+<div class="container py-5">
+    <h1 class="mb-4">Request Logs</h1>
+
+    @if (Model.Logs.Any())
+    {
+        var columns = Model.Logs.First().Keys.ToList();
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                    @foreach (var col in columns)
+                    {
+                        <th>@col</th>
+                    }
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var row in Model.Logs)
+                {
+                    <tr>
+                        @foreach (var col in columns)
+                        {
+                            <td>@row[col]</td>
+                        }
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <p>No logs found.</p>
+    }
+</div>

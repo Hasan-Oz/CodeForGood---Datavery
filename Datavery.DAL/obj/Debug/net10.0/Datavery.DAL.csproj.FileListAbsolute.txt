@@ -1,0 +1,16 @@
+/Users/jakub_blaskovan/Projects/RiderProjects/CodeForGood---Datavery/Datavery.DAL/bin/Debug/net10.0/Datavery.DAL.deps.json
+/Users/jakub_blaskovan/Projects/RiderProjects/CodeForGood---Datavery/Datavery.DAL/bin/Debug/net10.0/Datavery.DAL.dll
+/Users/jakub_blaskovan/Projects/RiderProjects/CodeForGood---Datavery/Datavery.DAL/bin/Debug/net10.0/Datavery.DAL.pdb
+/Users/jakub_blaskovan/Projects/RiderProjects/CodeForGood---Datavery/Datavery.DAL/bin/Debug/net10.0/Datavery.Domain.dll
+/Users/jakub_blaskovan/Projects/RiderProjects/CodeForGood---Datavery/Datavery.DAL/bin/Debug/net10.0/Datavery.Domain.pdb
+/Users/jakub_blaskovan/Projects/RiderProjects/CodeForGood---Datavery/Datavery.DAL/obj/Debug/net10.0/Datavery.DAL.csproj.AssemblyReference.cache
+/Users/jakub_blaskovan/Projects/RiderProjects/CodeForGood---Datavery/Datavery.DAL/obj/Debug/net10.0/Datavery.DAL.GeneratedMSBuildEditorConfig.editorconfig
+/Users/jakub_blaskovan/Projects/RiderProjects/CodeForGood---Datavery/Datavery.DAL/obj/Debug/net10.0/Datavery.DAL.AssemblyInfoInputs.cache
+/Users/jakub_blaskovan/Projects/RiderProjects/CodeForGood---Datavery/Datavery.DAL/obj/Debug/net10.0/Datavery.DAL.AssemblyInfo.cs
+/Users/jakub_blaskovan/Projects/RiderProjects/CodeForGood---Datavery/Datavery.DAL/obj/Debug/net10.0/Datavery.DAL.csproj.CoreCompileInputs.cache
+/Users/jakub_blaskovan/Projects/RiderProjects/CodeForGood---Datavery/Datavery.DAL/obj/Debug/net10.0/Datavery.DAL.sourcelink.json
+/Users/jakub_blaskovan/Projects/RiderProjects/CodeForGood---Datavery/Datavery.DAL/obj/Debug/net10.0/Datavery.77D40AF6.Up2Date
+/Users/jakub_blaskovan/Projects/RiderProjects/CodeForGood---Datavery/Datavery.DAL/obj/Debug/net10.0/Datavery.DAL.dll
+/Users/jakub_blaskovan/Projects/RiderProjects/CodeForGood---Datavery/Datavery.DAL/obj/Debug/net10.0/refint/Datavery.DAL.dll
+/Users/jakub_blaskovan/Projects/RiderProjects/CodeForGood---Datavery/Datavery.DAL/obj/Debug/net10.0/Datavery.DAL.pdb
+/Users/jakub_blaskovan/Projects/RiderProjects/CodeForGood---Datavery/Datavery.DAL/obj/Debug/net10.0/ref/Datavery.DAL.dll

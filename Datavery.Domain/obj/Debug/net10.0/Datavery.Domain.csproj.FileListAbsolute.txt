@@ -1,0 +1,12 @@
+/Users/jakub_blaskovan/Projects/RiderProjects/CodeForGood---Datavery/Datavery.Domain/bin/Debug/net10.0/Datavery.Domain.deps.json
+/Users/jakub_blaskovan/Projects/RiderProjects/CodeForGood---Datavery/Datavery.Domain/bin/Debug/net10.0/Datavery.Domain.dll
+/Users/jakub_blaskovan/Projects/RiderProjects/CodeForGood---Datavery/Datavery.Domain/bin/Debug/net10.0/Datavery.Domain.pdb
+/Users/jakub_blaskovan/Projects/RiderProjects/CodeForGood---Datavery/Datavery.Domain/obj/Debug/net10.0/Datavery.Domain.GeneratedMSBuildEditorConfig.editorconfig
+/Users/jakub_blaskovan/Projects/RiderProjects/CodeForGood---Datavery/Datavery.Domain/obj/Debug/net10.0/Datavery.Domain.AssemblyInfoInputs.cache
+/Users/jakub_blaskovan/Projects/RiderProjects/CodeForGood---Datavery/Datavery.Domain/obj/Debug/net10.0/Datavery.Domain.AssemblyInfo.cs
+/Users/jakub_blaskovan/Projects/RiderProjects/CodeForGood---Datavery/Datavery.Domain/obj/Debug/net10.0/Datavery.Domain.csproj.CoreCompileInputs.cache
+/Users/jakub_blaskovan/Projects/RiderProjects/CodeForGood---Datavery/Datavery.Domain/obj/Debug/net10.0/Datavery.Domain.sourcelink.json
+/Users/jakub_blaskovan/Projects/RiderProjects/CodeForGood---Datavery/Datavery.Domain/obj/Debug/net10.0/Datavery.Domain.dll
+/Users/jakub_blaskovan/Projects/RiderProjects/CodeForGood---Datavery/Datavery.Domain/obj/Debug/net10.0/refint/Datavery.Domain.dll
+/Users/jakub_blaskovan/Projects/RiderProjects/CodeForGood---Datavery/Datavery.Domain/obj/Debug/net10.0/Datavery.Domain.pdb
+/Users/jakub_blaskovan/Projects/RiderProjects/CodeForGood---Datavery/Datavery.Domain/obj/Debug/net10.0/ref/Datavery.Domain.dll

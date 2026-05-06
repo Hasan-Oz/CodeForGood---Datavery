@@ -1,10 +1,63 @@
 ﻿@page
-@model IndexModel
+@model Datavery.Presentation.Pages.IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Datavery";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container py-5">
+    <h1 class="mb-3">Datavery</h1>
+    <p class="text-muted">
+        Ask a question in natural language and retrieve data from structured datasets.
+    </p>
+
+    <form method="post" class="card p-4 shadow-sm mb-4">
+        <div class="mb-3">
+            <label asp-for="Question" class="form-label">Your question</label>
+            <textarea asp-for="Question" class="form-control" rows="3"
+                      placeholder="e.g. Which projects are in progress?"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Ask</button>
+    </form>
+
+    @if (Model.Response != null)
+    {
+        <div class="card p-4 shadow-sm">
+            <h3>Result</h3>
+
+            <p><strong>Status:</strong> @Model.Response.Status</p>
+            <p><strong>Message:</strong> @Model.Response.Message</p>
+            <p><strong>Datasets:</strong> @string.Join(", ", Model.Response.Datasets)</p>
+            <p><strong>Category:</strong> @Model.Response.Category</p>
+            <p><strong>Join:</strong> @(Model.Response.IsJoin ? "Yes" : "No")</p>
+
+            @if (Model.Response.Results.Any())
+            {
+                var columns = Model.Response.Results.First().Keys.ToList();
+
+                <div class="table-responsive mt-3">
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                @foreach (var col in columns)
+                                {
+                                    <th>@col</th>
+                                }
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var row in Model.Response.Results)
+                            {
+                                <tr>
+                                    @foreach (var col in columns)
+                                    {
+                                        <td>@row[col]</td>
+                                    }
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+        </div>
+    }
 </div>
