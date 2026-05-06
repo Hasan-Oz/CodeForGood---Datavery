@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Datavery.Domain")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bc284d92cd4e6e955ff6cbe92c2f2c7003fd7f47")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ccea33be78edb5f5f8f25cfb9a428d8a83df102e")]
 [assembly: System.Reflection.AssemblyProductAttribute("Datavery.Domain")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Datavery.Domain")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
