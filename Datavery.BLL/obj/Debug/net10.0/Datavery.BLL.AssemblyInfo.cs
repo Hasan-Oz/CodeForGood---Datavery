@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Datavery.BLL")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d0f428c0bcaedf8a00db51ceb21a5ce153d8794c")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+dd45a69869f151781c79eaf9066f9db47c05a328")]
 [assembly: System.Reflection.AssemblyProductAttribute("Datavery.BLL")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Datavery.BLL")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
