@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Datavery.Presentation")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d0f428c0bcaedf8a00db51ceb21a5ce153d8794c")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+74dbdfbf8c248b32e6f9bb92ebafdc556536665e")]
 [assembly: System.Reflection.AssemblyProductAttribute("Datavery.Presentation")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Datavery.Presentation")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
