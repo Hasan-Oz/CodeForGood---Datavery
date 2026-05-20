@@ -12,7 +12,7 @@ namespace Datavery.DAL.Services
         private readonly string _connectionString;
 
         public DatabaseService(string connectionString =
-            "Server=localhost,1433;Database=Datavery;User Id=sa;Password=Admin1234!;TrustServerCertificate=True;")
+            "Server=localhost,1434;Database=Datavery;User Id=sa;Password=Admin1234!;TrustServerCertificate=True;")
         {
             _connectionString = connectionString;
         }
