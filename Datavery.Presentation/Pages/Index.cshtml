@@ -1,10 +1,372 @@
 ﻿@page
-@model IndexModel
+@model Datavery.Presentation.Pages.IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Datavery";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<style>
+    @@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&display=swap');
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+        background: #0e0e10;
+        color: #e8e8f0;
+        font-family: 'DM Mono', monospace;
+        min-height: 100vh;
+    }
+
+    .navbar { display: none !important; }
+    footer  { display: none !important; }
+
+    /* ── Sidebar ── */
+    .sidebar {
+        position: fixed;
+        left: 0; top: 0; bottom: 0;
+        width: 80px;
+        background: #0e0e10;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px 0;
+        gap: 6px;
+        z-index: 100;
+        border-right: 1px solid #1e1e28;
+    }
+
+    .sidebar-brand {
+        font-family: 'Syne', sans-serif;
+        font-weight: 800;
+        font-size: 11px;
+        color: #00e5a0;
+        letter-spacing: .12em;
+        writing-mode: vertical-rl;
+        transform: rotate(180deg);
+        margin-bottom: 20px;
+        user-select: none;
+    }
+
+    .sidebar-icon {
+        width: 36px;
+        height: 36px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #4a4a6a;
+        font-size: 15px;
+        cursor: pointer;
+        transition: background .15s, color .15s;
+        text-decoration: none;
+    }
+
+    .sidebar-icon:hover { background: #1a1a24; color: #e8e8f0; }
+    .sidebar-icon.active { background: #1a1a24; color: #00e5a0; }
+
+    .sidebar-bottom {
+        margin-top: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+    }
+
+    /* ── Main ── */
+    .main {
+        margin-left: 80px;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* ── Hero ── */
+    .hero {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 40px 24px 200px;
+        position: relative;
+    }
+
+    .hero::before {
+        content: '';
+        position: absolute;
+        bottom: 160px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 500px;
+        height: 200px;
+        background: radial-gradient(ellipse, rgba(0,229,160,.08) 0%, transparent 70%);
+        pointer-events: none;
+    }
+
+    .hero-eyebrow {
+        font-size: 10px;
+        letter-spacing: .2em;
+        text-transform: uppercase;
+        color: #00e5a0;
+        margin-bottom: 20px;
+    }
+
+    .hero-title {
+        font-family: 'Syne', sans-serif;
+        font-size: clamp(32px, 5vw, 56px);
+        font-weight: 800;
+        color: #e8e8f0;
+        text-align: center;
+        letter-spacing: -0.03em;
+        line-height: 1.05;
+        margin-bottom: 12px;
+    }
+
+    .hero-sub {
+        font-size: 12px;
+        color: #4a4a6a;
+        text-align: center;
+        letter-spacing: .04em;
+    }
+
+    /* ── Result layout ── */
+    .result-layout {
+        flex: 1;
+        max-width: 860px;
+        width: 100%;
+        margin: 0 auto;
+        padding: 48px 32px 200px;
+    }
+
+    .question-display {
+        font-family: 'Syne', sans-serif;
+        font-size: 22px;
+        font-weight: 700;
+        color: #e8e8f0;
+        margin-bottom: 20px;
+        letter-spacing: -0.02em;
+    }
+
+    .meta-pills {
+        display: flex;
+        gap: 6px;
+        flex-wrap: wrap;
+        margin-bottom: 28px;
+    }
+
+    .pill {
+        background: #1a1a24;
+        color: #5a5a7a;
+        font-size: 10px;
+        letter-spacing: .1em;
+        padding: 4px 10px;
+        border-radius: 4px;
+        text-transform: uppercase;
+        border: 1px solid #2a2a38;
+    }
+
+    .pill.success { background: rgba(0,229,160,.08); color: #00e5a0; border-color: rgba(0,229,160,.2); }
+    .pill.failed  { background: rgba(239,68,68,.08);  color: #ef4444; border-color: rgba(239,68,68,.2); }
+    .pill.dataset { background: rgba(139,92,246,.08); color: #a78bfa; border-color: rgba(139,92,246,.2); }
+
+    .result-message {
+        color: #5a5a7a;
+        font-size: 13px;
+        margin-bottom: 24px;
+        padding: 14px 18px;
+        background: #1a1a24;
+        border-left: 2px solid #2a2a38;
+        border-radius: 0 6px 6px 0;
+    }
+
+    .data-count {
+        font-size: 10px;
+        letter-spacing: .12em;
+        text-transform: uppercase;
+        color: #4a4a6a;
+        margin-bottom: 12px;
+    }
+
+    .data-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 12px;
+    }
+
+    .data-table th {
+        font-size: 9px;
+        letter-spacing: .14em;
+        text-transform: uppercase;
+        color: #4a4a6a;
+        padding: 10px 14px;
+        text-align: left;
+        border-bottom: 1px solid #1e1e28;
+        white-space: nowrap;
+        background: #0e0e10;
+    }
+
+    .data-table td {
+        padding: 10px 14px;
+        color: #a8a8c0;
+        border-bottom: 1px solid #1a1a24;
+    }
+
+    .data-table tr:hover td { background: #1a1a24; }
+
+    .empty { color: #4a4a6a; font-size: 13px; padding: 40px 0; text-align: center; }
+
+    /* ── Input bar ── */
+    .input-bar-wrap {
+        position: fixed;
+        bottom: 40%;
+        left: 64px;
+        right: 0;
+        padding: 20px 24px;
+        display: flex;
+        justify-content: center;
+        z-index: 50;
+    }
+
+    .input-bar-form {
+        width: 100%;
+        max-width: 680px;
+    }
+
+    .input-bar {
+        display: flex;
+        align-items: center;
+        background: #1a1a24;
+        border: 1px solid #2a2a38;
+        border-radius: 12px;
+        padding: 14px 18px;
+        gap: 12px;
+        transition: border-color .2s, box-shadow .2s;
+    }
+
+    .input-bar:focus-within {
+        border-color: #00e5a0;
+        box-shadow: 0 0 0 3px rgba(0,229,160,.08);
+    }
+
+    .input-bar input {
+        flex: 1;
+        background: transparent;
+        border: none;
+        outline: none;
+        color: #e8e8f0;
+        font-family: 'DM Mono', monospace;
+        font-size: 14px;
+    }
+
+    .input-bar input::placeholder { color: #3a3a52; }
+
+    .input-submit {
+        background: #00e5a0;
+        border: none;
+        color: #000;
+        cursor: pointer;
+        padding: 6px 8px;
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: opacity .15s;
+        font-size: 14px;
+        line-height: 1;
+    }
+
+    .input-submit:hover { opacity: .85; }
+
+    @@media (max-width: 600px) {
+        .sidebar { width: 80px; }
+        .main { margin-left: 80px; }
+        .input-bar-wrap { left: 80px; }
+    }
+</style>
+
+<!-- Sidebar -->
+<div class="sidebar">
+    <div class="sidebar-brand">DVY</div>
+    <a href="/" class="sidebar-icon active" title="Home">⊞</a>
+    <a href="/Logs" class="sidebar-icon" title="Logs">≡</a>
+    <div class="sidebar-bottom">
+        <div class="sidebar-icon">◎</div>
+    </div>
 </div>
+
+<!-- Main -->
+<div class="main">
+    @if (Model.Response == null)
+    {
+        <div class="hero">
+            <div class="hero-eyebrow">◆ Datavery</div>
+            <h1 class="hero-title">Ask your data<br>anything.</h1>
+            <p class="hero-sub">Employees · Items · Workstations</p>
+        </div>
+    }
+    else
+    {
+        <div class="result-layout">
+            <div class="question-display">@Model.Question</div>
+
+            <div class="meta-pills">
+                <span class="pill @(Model.Response.Status == "success" ? "success" : "failed")">@Model.Response.Status</span>
+                @foreach (var ds in Model.Response.Datasets)
+                {
+                    <span class="pill dataset">@ds</span>
+                }
+                <span class="pill">@Model.Response.Category</span>
+                @if (Model.Response.IsJoin)
+                {
+                    <span class="pill">join</span>
+                }
+            </div>
+
+            @if (!string.IsNullOrEmpty(Model.Response.Message))
+            {
+                <div class="result-message">@Model.Response.Message</div>
+            }
+
+            @if (Model.Response.Results.Any())
+            {
+                var columns = Model.Response.Results.First().Keys.ToList();
+                <div class="data-count">@Model.Response.Results.Count record@(Model.Response.Results.Count == 1 ? "" : "s")</div>
+                <div style="overflow-x:auto;">
+                    <table class="data-table">
+                        <thead>
+                            <tr>@foreach (var col in columns) { <th>@col</th> }</tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var row in Model.Response.Results)
+                            {
+                                <tr>@foreach (var col in columns) { <td>@row[col]</td> }</tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+            else if (Model.Response.Status == "success")
+            {
+                <p class="empty">No records found.</p>
+            }
+        </div>
+    }
+</div>
+
+<!-- Input bar -->
+<div class="input-bar-wrap">
+    <form method="post" class="input-bar-form" id="askForm">
+        <div class="input-bar">
+            <input type="text" name="Question" id="questionInput"
+                   placeholder="Ask a question about your data..."
+                   value="@Model.Question" autocomplete="off" />
+            <button type="submit" class="input-submit">➤</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    document.getElementById('questionInput').addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') { e.preventDefault(); document.getElementById('askForm').submit(); }
+    });
+    document.getElementById('questionInput').focus();
+</script>

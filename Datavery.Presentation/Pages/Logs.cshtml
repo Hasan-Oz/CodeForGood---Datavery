@@ -1,0 +1,233 @@
+@page
+@model Datavery.Presentation.Pages.LogsModel
+@{
+    ViewData["Title"] = "Logs";
+}
+
+<style>
+    @@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Mono:wght@300;400;500&display=swap');
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+        background: #0e0e10;
+        color: #e8e8f0;
+        font-family: 'DM Mono', monospace;
+        min-height: 100vh;
+    }
+
+    .navbar { display: none !important; }
+    footer  { display: none !important; }
+
+    .sidebar {
+        position: fixed;
+        left: 0; top: 0; bottom: 0;
+        width: 80px;
+        background: #0e0e10;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px 0;
+        gap: 6px;
+        z-index: 100;
+        border-right: 1px solid #1e1e28;
+    }
+
+    .sidebar-brand {
+        font-family: 'Syne', sans-serif;
+        font-weight: 800;
+        font-size: 11px;
+        color: #00e5a0;
+        letter-spacing: .12em;
+        writing-mode: vertical-rl;
+        transform: rotate(180deg);
+        margin-bottom: 20px;
+        user-select: none;
+    }
+
+    .sidebar-icon {
+        width: 36px; height: 36px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #4a4a6a;
+        font-size: 15px;
+        cursor: pointer;
+        transition: background .15s, color .15s;
+        text-decoration: none;
+    }
+
+    .sidebar-icon:hover { background: #1a1a24; color: #e8e8f0; }
+    .sidebar-icon.active { background: #1a1a24; color: #00e5a0; }
+    .sidebar-bottom { margin-top: auto; display: flex; flex-direction: column; align-items: center; gap: 6px; }
+
+    .main {
+        margin-left: 80px;
+        padding: 52px 40px 80px;
+        max-width: 1060px;
+    }
+
+    .page-title {
+        font-family: 'Syne', sans-serif;
+        font-size: 28px;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        color: #e8e8f0;
+        margin-bottom: 6px;
+    }
+
+    .page-sub {
+        font-size: 11px;
+        color: #4a4a6a;
+        letter-spacing: .06em;
+        margin-bottom: 36px;
+    }
+
+    .stats-row {
+        display: flex;
+        gap: 12px;
+        margin-bottom: 36px;
+        flex-wrap: wrap;
+    }
+
+    .stat-card {
+        background: #1a1a24;
+        border: 1px solid #2a2a38;
+        border-radius: 10px;
+        padding: 16px 22px;
+        min-width: 120px;
+    }
+
+    .stat-label {
+        font-size: 9px;
+        letter-spacing: .16em;
+        text-transform: uppercase;
+        color: #4a4a6a;
+        margin-bottom: 8px;
+    }
+
+    .stat-value {
+        font-family: 'Syne', sans-serif;
+        font-size: 32px;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+    }
+
+    .table-wrap {
+        border: 1px solid #1e1e28;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    .data-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 12px;
+    }
+
+    .data-table th {
+        font-size: 9px;
+        letter-spacing: .14em;
+        text-transform: uppercase;
+        color: #4a4a6a;
+        padding: 10px 14px;
+        text-align: left;
+        border-bottom: 1px solid #1e1e28;
+        white-space: nowrap;
+        background: #141418;
+    }
+
+    .data-table td {
+        padding: 10px 14px;
+        color: #8a8aa8;
+        border-bottom: 1px solid #1a1a24;
+    }
+
+    .data-table tr:last-child td { border-bottom: none; }
+    .data-table tr:hover td { background: #1a1a24; }
+
+    .badge {
+        display: inline-block;
+        padding: 2px 8px;
+        border-radius: 4px;
+        font-size: 9px;
+        letter-spacing: .1em;
+        text-transform: uppercase;
+        border: 1px solid;
+    }
+
+    .badge-success { background: rgba(0,229,160,.08); color: #00e5a0; border-color: rgba(0,229,160,.2); }
+    .badge-failed  { background: rgba(239,68,68,.08);  color: #ef4444; border-color: rgba(239,68,68,.2); }
+    .badge-error   { background: rgba(251,191,36,.08); color: #fbbf24; border-color: rgba(251,191,36,.2); }
+
+    .empty { text-align: center; padding: 64px; color: #4a4a6a; font-size: 13px; }
+</style>
+
+<div class="sidebar">
+    <div class="sidebar-brand">DVY</div>
+    <a href="/" class="sidebar-icon" title="Home">⊞</a>
+    <a href="/Logs" class="sidebar-icon active" title="Logs">≡</a>
+    <div class="sidebar-bottom">
+        <div class="sidebar-icon">◎</div>
+    </div>
+</div>
+
+<div class="main">
+    <h1 class="page-title">Request Logs</h1>
+    <p class="page-sub">Every query made through Datavery</p>
+
+    @if (Model.Logs.Any())
+    {
+        var total   = Model.Logs.Count;
+        var success = Model.Logs.Count(r => r.ContainsKey("Status") && r["Status"]?.ToString() == "success");
+        var failed  = total - success;
+
+        <div class="stats-row">
+            <div class="stat-card">
+                <div class="stat-label">Total</div>
+                <div class="stat-value" style="color:#e8e8f0">@total</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Success</div>
+                <div class="stat-value" style="color:#00e5a0">@success</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Failed</div>
+                <div class="stat-value" style="color:#ef4444">@failed</div>
+            </div>
+        </div>
+
+        var columns = Model.Logs.First().Keys.ToList();
+        <div class="table-wrap">
+            <table class="data-table">
+                <thead>
+                    <tr>@foreach (var col in columns) { <th>@col</th> }</tr>
+                </thead>
+                <tbody>
+                    @foreach (var row in Model.Logs)
+                    {
+                        <tr>
+                            @foreach (var col in columns)
+                            {
+                                <td>
+                                    @if (col == "Status")
+                                    {
+                                        var val = row[col]?.ToString() ?? "";
+                                        var cls = val == "success" ? "badge-success" : val == "failed" ? "badge-failed" : "badge-error";
+                                        <span class="badge @cls">@val</span>
+                                    }
+                                    else { @row[col] }
+                                </td>
+                            }
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <div class="empty">No logs yet. Ask a question to get started.</div>
+    }
+</div>
